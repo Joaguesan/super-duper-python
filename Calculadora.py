@@ -3,8 +3,6 @@ Calculadora
 ------------------------------------------------------------------------------------------
 """
 
-import keyboard
-
 
 def suma(num1, num2):
     if isinstance(num1, float) and isinstance(num2, float):
@@ -46,7 +44,7 @@ def calculadora():
         print("Dividir [/]")
         print("Salir [Lo que sea]")
         operacion = input()
-        if keyboard.is_pressed('q'):
+        if operacion not in ("+", "-", "*", "/"):
             break
         while True:
             valor1 = input("Primer valor: ")
@@ -74,6 +72,8 @@ def calculadora():
             print(division(num1, num2))
         else:
             break
+        print("")
+    print("Hasta otra")
 
 
 calculadora()
