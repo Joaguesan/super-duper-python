@@ -7,7 +7,7 @@ import csv
 import os
 
 
-def generador(nombre, longitud=8):
+def generador(nombre, longitud=8, guardar=True):
     letrasmay = string.ascii_uppercase
     letrasmin = string.ascii_lowercase
     numeros = string.digits
@@ -16,6 +16,7 @@ def generador(nombre, longitud=8):
     simbolos = simbolos.replace("\"", "")
     simbolos = simbolos.replace("`", "")
     simbolos = simbolos.replace(",", "")
+    simbolos = simbolos.replace(";", "")
     opciones = letrasmay + numeros + simbolos + letrasmin
     contr = ""
     fuerte = False
@@ -30,15 +31,18 @@ def generador(nombre, longitud=8):
             fuerte = True
         else:
             contr = ""
-    if os.path.exists("./contr.csv"):
-        with open('./contr.csv', 'a') as f:
-            writer = csv.writer(f)
-            writer.writerow([nombre, contr])
+    if guardar:
+        if os.path.exists("./contr.csv"):
+            with open('./contr.csv', 'a') as f:
+                writer = csv.writer(f)
+                writer.writerow([nombre, contr])
+        else:
+            with open('./contr.csv', 'w') as f:
+                writer = csv.writer(f)
+                writer.writerow(['Sitio Web', 'contraseña'])
+                writer.writerow([nombre, contr])
     else:
-        with open('./contr.csv', 'w') as f:
-            writer = csv.writer(f)
-            writer.writerow(['Sitio Web', 'contraseña'])
-            writer.writerow([nombre, contr])
+        return contr
 
 
-print(generador("Facebook", 8))
+print(generador("Facebook", 20, True))
